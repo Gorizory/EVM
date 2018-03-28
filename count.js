@@ -1,7 +1,13 @@
 const config = require('./config');
 const V = require('./V');
 
-module.exports = function (sizeArray = [4,5,7,7,7]) {
+function count(sizeArray) {
+    let printIsNeeded = false;
+    if (!sizeArray) {
+        sizeArray = [5, 4, 4, 4, 7, 6];
+        printIsNeeded = true;
+    }
+
     const matrixAdj = config.matrixAdj;
 
     const contMatrixAdj = {};
@@ -15,7 +21,9 @@ module.exports = function (sizeArray = [4,5,7,7,7]) {
         Vi.push(new V(size));
     });
 
-    console.log('Последовательный ход:');
+    if (printIsNeeded) {
+        console.log('Последовательный ход:');
+    }
 
     function countSum() {
         const vectorSum = {};
@@ -120,10 +128,14 @@ module.exports = function (sizeArray = [4,5,7,7,7]) {
             }
         });
 
-        console.log(`V${i}: ${Vi[i].getSet()}`);
+        if (printIsNeeded) {
+            console.log(`V${i}: ${Vi[i].getSet()}`);
+        }
     }
 
-    console.log('Итерационный ход:');
+    if (printIsNeeded) {
+        console.log('Итерационный ход:');
+    }
 
     function createIterationMatrixAdj() {
         const iterationMatrixAdj = {};
@@ -189,7 +201,9 @@ module.exports = function (sizeArray = [4,5,7,7,7]) {
 
             const deltaR = {};
 
-            console.log(`Q: ${countQ(iterationMatrixAdj)}, iteration: ${iteration}`);
+            if (printIsNeeded) {
+                console.log(`Q: ${countQ(iterationMatrixAdj)}, iteration: ${iteration}`);
+            }
 
             Vi[i].getSet().forEach(rowId => {
                 const Vj = {};
@@ -240,16 +254,23 @@ module.exports = function (sizeArray = [4,5,7,7,7]) {
     }
 
     const iterationMatrixAdj = createIterationMatrixAdj();
-    console.log(`Q: ${countQ(iterationMatrixAdj)}, iteration: ${iteration}`);
+    if (printIsNeeded) {
+        console.log(`Q: ${countQ(iterationMatrixAdj)}, iteration: ${iteration}`);
+        Vi.forEach((Vii, i) => {
+            console.log(`V${i}: ${Vii.getSet()}`);
+        });
 
-    Vi.forEach((Vii, i) => {
-        console.log(`V${i}: ${Vii.getSet()}`);
-    });
+    }
 
     return {
         Q: countQ(iterationMatrixAdj),
         Vi,
         iteration,
     };
-};
+}
 
+if (process.env.START) {
+    count();
+}
+
+module.exports = count;

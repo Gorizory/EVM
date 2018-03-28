@@ -96,7 +96,7 @@
     // http://eslint.org/docs/rules/#best-practices
     //    "accessor-pairs": [2, {"getWithoutSet": true}],
     "block-scoped-var": 2,
-    "complexity": 2,
+    "complexity": 0,
     "consistent-return": 0,
     //    "curly": [2, "all"],
     //    "default-case": 1,
