@@ -4,7 +4,7 @@ const V = require('./V');
 function count(sizeArray) {
     let printIsNeeded = false;
     if (!sizeArray) {
-        sizeArray = [5, 4, 4, 4, 7, 6];
+        sizeArray = [5, 5, 7, 6, 7];
         printIsNeeded = true;
     }
 
@@ -39,6 +39,7 @@ function count(sizeArray) {
     }
 
     for (let i = 0; i < Vi.length; i++) {
+
         let least = 'v0';
 
         const vectorSum = countSum();
@@ -47,8 +48,8 @@ function count(sizeArray) {
             if (vectorSum[rowId] < min) {
                 min = vectorSum[rowId];
                 least = rowId;
-                return min;
             }
+            return min;
         }, 9999);
         Vi[i].pushSet(least);
 
@@ -158,7 +159,6 @@ function count(sizeArray) {
 
         return iterationMatrixAdj;
     }
-
 
     function countQ(iterationMatrixAdj) {
         let q = 0;
